@@ -15,26 +15,38 @@ const ArrayFilter = () => {
   const [list, setList] = useState(arr);
   const [val, setVal] = useState("");
 
-  const renderArr = () => {
-    return list.map((el, index) => {
-      return <div key={index}>{el}</div>;
-    });
-  };
-  const handleChange = (e) => {
-    setVal(e.target.value);
+  const handleChange = (e) =>{
+    console.log(e.target.value)
+    if(e.target.value === "") {
+      setList(arr)
+      return 
+     }
+    
+  let res =  list.filter(el=> {
+  
+    return el.toLowerCase().includes(e.target.value.toLowerCase())
+  
+  })
+  setList(res)
+  
+  }
 
-    console.log(val);
-  };
-
-  useEffect(() => {}, [list]);
-
+  const renderArr = () =>{
+    return (
+      list.map((el, index)=> {
+        return (
+          <div key={index}>{el}</div>
+        )
+      })
+    )
+  }
   return (
     <div>
       <input
         type="text"
         onChange={(e) => handleChange(e)}
         placeholder="Enter name"
-        value={val}
+        // value={val}
       />
       <div>{renderArr()}</div>
     </div>
