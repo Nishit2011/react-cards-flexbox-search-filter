@@ -1,0 +1,11 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.card {
+  background: #ccc;
+  width: 30%;
+  height: 20px;
+  border: 1px solid red;
+}
