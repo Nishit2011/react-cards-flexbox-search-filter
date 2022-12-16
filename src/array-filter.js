@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { isValidElement } from "react/cjs/react.production.min";
 const arr = [
   "Prakash",
   "Pam",
@@ -8,7 +9,7 @@ const arr = [
   "Camel",
   "Dog",
   "Deer",
-  "Zack"
+  "Zack",
 ];
 const ArrayFilter = () => {
   const [list, setList] = useState(arr);
@@ -21,6 +22,8 @@ const ArrayFilter = () => {
   };
   const handleChange = (e) => {
     setVal(e.target.value);
+
+    console.log(val);
   };
 
   useEffect(() => {}, [list]);
