@@ -1,5 +1,5 @@
-import "./styles.css";
-import React, { useEffect, useState } from "react";
+import styles from "./app.style.module.css";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 
@@ -49,27 +49,22 @@ useEffect(()=>{
       return (
         <div
           key={el.id}
-          style={{
-            border: "1px solid white",
-            margin: "2%",
-            background: "#ccc",
-            flex: "0 0 25%"
-          }}
+         className={styles.cards}
         >
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div className={styles.cardElems}>
             <label>Name: </label>
             <div>{el.name}</div>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <label>Email </label>
+          <div className={styles.cardElems}>
+            <label >Email </label>
             <div>{el.email}</div>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div className={styles.cardElems}>
             {" "}
             <label>Gender </label>
             <div>{el.gender}</div>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div className={styles.cardElems}>
             {" "}
             <label>Status </label>
             <div>{el.status}</div>
@@ -79,22 +74,26 @@ useEffect(()=>{
     });
   };
 
-  
+  const inputRef = useRef(null)
   useEffect(() => {
+    inputRef.current.focus()
     getData();
   }, []);
   return (
-    <div className="App">
-      <div>Search</div>
+    <div>
+      <div className={styles.search} >
+      <h4>Search Filter</h4>
       <input
+        ref= {inputRef}
         type="text"
         value={val}
         placeholder="Enter a value"
         onChange={(e) => handleVal(e)}
        
       />
+      </div>
       {users.length > 0 ? (
-        <div style={{ display: "flex", flexWrap:"wrap"}}>
+        <div className={styles.container}>
           {renderUsers()}
         </div>
       ) : (
