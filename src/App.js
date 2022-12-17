@@ -2,41 +2,58 @@ import "./styles.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function App() {
-  const [users, setUsers] = useState([]);
-  const [val, setVal] = useState("");
 
-  const getData = async () => {
-    const { data } = await axios.get("https://gorest.co.in/public/v2/users");
-    //console.log(data);
-    setUsers(data);
-  };
+
+export default function App() {
+const [users, setUsers] = useState([])
+const [filteredUsers, setFilteredUsers] = useState([])
+const [val, setVal] = useState("")
+
+const getData = async () => {
+  const { data } = await axios.get("https://gorest.co.in/public/v2/users");
+  //console.log(data);
+  setUsers(data)
+ 
+};
 
   const handleVal = (e) => {
-    setVal(e.target.value);
+  
+   setVal(e.target.value)
+   if(val.length >1){
+    let res = users.filter(el=>{
+     console.log(Object.values(el).join(''))
+      return  Object.values(el).join('').toLowerCase().includes(val.toLowerCase())
+    })
+    console.log(res)
+    setFilteredUsers(res)
+   }else{
+    setFilteredUsers(users)
+   }
+   
+  
   };
 
-  useEffect(() => {
-    let res = [];
-    users.map((el) => {
-      for (let prop in el) {
-      }
-    });
-    console.log(res);
-    //  console.log(users)
-  }, [val]);
-
-  useEffect(() => {}, [users]);
+useEffect(()=>{
+  getData()
+},[])
+ 
 
   const renderUsers = () => {
-    return users.map((el) => {
+    let selectedUser = []
+    if(val.length>1){
+      selectedUser = filteredUsers
+    }else{
+      selectedUser = users
+    }
+    return selectedUser.map((el) => {
       return (
         <div
           key={el.id}
           style={{
             border: "1px solid white",
             margin: "2%",
-            background: "#ccc"
+            background: "#ccc",
+            flex: "0 0 25%"
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -61,6 +78,8 @@ export default function App() {
       );
     });
   };
+
+  
   useEffect(() => {
     getData();
   }, []);
@@ -72,10 +91,10 @@ export default function App() {
         value={val}
         placeholder="Enter a value"
         onChange={(e) => handleVal(e)}
-        value={val}
+       
       />
       {users.length > 0 ? (
-        <div style={{ display: "flex", flexFlow: "row wrap" }}>
+        <div style={{ display: "flex", flexWrap:"wrap"}}>
           {renderUsers()}
         </div>
       ) : (
