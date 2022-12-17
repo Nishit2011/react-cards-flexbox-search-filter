@@ -23,6 +23,7 @@ body {
 
 .cardElems {
     display: flex;
+
     /* justify-content: space-between; */
 }
 
@@ -32,6 +33,14 @@ body {
 div {
     flex: 0 0 20%;
 
+}
+
+.cardElems>div {
+    color: #ef1abf
+}
+
+.cardElems>label {
+    font-weight: bolder
 }
 
 .search {
